@@ -46,19 +46,23 @@ public class MainBus {
                     this.busNameR = newBus.sellNewBusSeat();
                     break;
                 case "5":
-                    boolean isValid = ticket.searchTicketByName();
-                    if(isValid){
+                    CustomReturn resultData = ticket.searchTicketByName();
+                    if(resultData.isValid && resultData.typeOfResult == 1){
                         Utils.formatMsg("| Ticket no encontrado o nombre invalido", Constants.BOX_NUMBER, true);
-                    }else {
+                    }else if(resultData.isValid && resultData.typeOfResult == 0 ){
+                        Utils.formatMsg(resultData.line, Constants.BOX_NUMBER, true);
+                    } else {
                         ticket.showTicketInformation();
                         Utils.boxFormating("_", Constants.BOX_NUMBER);
                     }
                     break;
                 case "6":
-                    boolean isValidDelete = ticket.searchTicketByName();
-                    if(isValidDelete){
+                    CustomReturn data = ticket.searchTicketByName();
+                    if(data.isValid && data.typeOfResult == 1){
                         Utils.formatMsg("| Ticket no encontrado o nombre invalido", Constants.BOX_NUMBER, true);
-                    }else {
+                    }else if(data.isValid && data.typeOfResult == 0 ){
+                        Utils.formatMsg(data.line, Constants.BOX_NUMBER, true);
+                    } else {
                         ticket.deleteTicketInformation(folderPath, this.busNameR);
                         Utils.boxFormating("_", Constants.BOX_NUMBER);
                     }

@@ -26,7 +26,7 @@ public class Main {
                     busoptions.mainBusOptions();
                     break;
                 case "2":
-                    System.out.println("You chose Two");
+                    System.out.println("Otras opciones del menu");
                     break;
                 case "0":
                     System.out.println("Exiting the program...");

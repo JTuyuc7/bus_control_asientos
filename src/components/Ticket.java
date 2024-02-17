@@ -26,14 +26,17 @@ public class Ticket {
     // Getters and setters
 
 
-    public boolean searchTicketByName(){
+    public CustomReturn searchTicketByName(){
         Scanner scanner = new Scanner(System.in);
+        File folder = new File(this.folderPath);
+        File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            return new CustomReturn(true, 0, "| Aun no hay tickets registrados.");
+        }
         Utils.formatMsg("| Ingrese el primer nombre del usuario: ", Constants.BOX_NUMBER, true);
         Utils.boxFormating("_", Constants.BOX_NUMBER);
         String ticketName = scanner.nextLine();
 
-        File folder = new File(this.folderPath);
-        File[] files = folder.listFiles();
         boolean isTicketNotFound = true; // Initialize as true
         assert files != null;
         for (File file : files) {
@@ -48,7 +51,8 @@ public class Ticket {
                 }
             }
         }
-        return isTicketNotFound;
+//        return isTicketNotFound;
+        return new CustomReturn(isTicketNotFound, 1, "");
     }
 
     public void deleteTicketInformation( String busFilePath, String busName){
@@ -63,13 +67,15 @@ public class Ticket {
                 File[] files = folder.listFiles();
                 File fileToDelete = new File(folderPath, ticketNameToShow);
                 String[] codeToUpdate = this.seatCodeToUpdate.split("\\.");
-                String data = showTicketInfoToGetBusName();
-                String[] findBusData = data.split(" ");
+                CustomReturn data = showTicketInfoToGetBusName();
+                String[] findBusData = data.line.split(" ");
                 Utils.updateSeatsValue(busFilePath + "/" + findBusData[2] + ".txt", codeToUpdate[0], false);
                 if (fileToDelete.delete()) {
-                    System.out.println("Ticket eliminado con exito!");
+                    Utils.formatMsg("| Ticket eliminado con exito!", Constants.BOX_NUMBER, true);
+
                 } else {
-                    System.out.println("Ooops algo salio mal.");
+                    System.out.println();
+                    Utils.formatMsg("Ooops algo salio mal.", Constants.BOX_NUMBER, true);
                 }
                 break;
             case "0":
@@ -77,14 +83,18 @@ public class Ticket {
                 break;
             default:
                 // Invalid input, handle it accordingly (e.g., display a message)
-                Utils.formatMsg("Entrada no válida. Por favor, ingrese 1 para eliminar o 0 para cancelar.", Constants.BOX_NUMBER, true);
+                Utils.formatMsg("| Entrada no válida. Por favor, ingrese 1 para eliminar o 0 para cancelar.", Constants.BOX_NUMBER, true);
                 break;
         }
     }
 
-    public String showTicketInfoToGetBusName(){
+    public CustomReturn showTicketInfoToGetBusName(){
         File folder = new File(this.folderPath);
         File[] files = folder.listFiles();
+
+        if (files == null || files.length == 0) {
+            return new CustomReturn(true, 0, "");
+        }
         String lastLineLocal = null;
         if (files != null) {
             for (File file : files) {
@@ -106,12 +116,14 @@ public class Ticket {
                 }
             }
         }
-        return lastLineLocal;
+//        return lastLineLocal;
+        return new CustomReturn(true, 1, lastLine);
     }
 
     public void showTicketInformation(){
         File folder = new File(this.folderPath);
         File[] files = folder.listFiles();
+
 
         if (files != null) {
             for (File file : files) {
