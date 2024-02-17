@@ -8,7 +8,7 @@ public class Constants {
     public static final String MOSTRAR_BUSES = "| 1. Mostrar todos los buses: ";
     public static final String CREAR_BUS = "| 2. Crear un nuevo Bus:";
     public static final String MENU_PRINCIPAL = "| Prsiona '0' para regresar al menu principal: ";
-    public static final String ESTADO_ASIENTOS = "| 1 - Ver el estaoo de los buses: ";
+    public static final String ESTADO_ASIENTOS = "| 1 - Ver el estado de los buses: ";
     public static final String SALIR = "| 0 - para salir: ";
     public static final String AVAILABLE_SEATS_BY_BUS = "| 3. Ver asientos disponibles por bus:";
     public static final String SELL_NEW_SEAT = "| 4. Generar nueva venta: ";

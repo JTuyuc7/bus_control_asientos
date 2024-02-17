@@ -1,5 +1,0 @@
-Pasajero: usuario
-Tipo asiento: Ventana
-Precio: 35.0
-Fecha de compra: 2024-02-12 08:11:29
-Bus designado: bus1

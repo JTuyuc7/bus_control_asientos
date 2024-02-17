@@ -29,6 +29,13 @@ public class Bus {
     }
 
     public String sellNewBusSeat(){
+        File folder = new File(this.folderPath);
+        File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            Utils.formatMsg("| Aun no hay buses registrados.", Constants.BOX_NUMBER, true);
+            return null; // Exit the method
+        }
+
         Scanner scanner = new Scanner(System.in);
         askFileName("vender");
         File busFile = new File(this.folderPath + "/" + this.busFileName + ".txt");
@@ -111,9 +118,15 @@ public class Bus {
 
     public void showBusContent(String type){
         File folder = new File(this.folderPath);
+        File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            Utils.formatMsg("| Aun no hay buses registrados.", Constants.BOX_NUMBER, true);
+            return; // Exit the method
+        }
         askFileName(type);
         Utils.validateFilePath(folder);
         Utils.boxFormating("_", Constants.BOX_NUMBER);
+
         File busFile = new File(this.folderPath + "/" + this.busFileName + ".txt");
         if (!busFile.exists()) {
             Utils.formatMsg("| El bus con ese nombre no existe.", Constants.BOX_NUMBER, true);
@@ -129,7 +142,7 @@ public class Bus {
         displayFileContent(busFile);
         Utils.boxFormating("+", Constants.BUS_NUMBER);
 //        System.out.println("Los asientos disponibles estan marcados con Verde, los NO disponibles con Rojo");
-        Utils.formatMsg("Los asientos disponibles estan marcados con Verde, los NO disponibles con Rojo", Constants.BOX_NUMBER, true);
+        Utils.formatMsg("| Los asientos disponibles estan marcados con Verde, los NO disponibles con Rojo", Constants.BOX_NUMBER, true);
         Utils.formatMsg("| ", Constants.BOX_NUMBER, true);
     }
 
