@@ -7,10 +7,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Represents a ticket.
+ */
 public class Ticket {
     // Attributes
     private final String folderPath;
@@ -18,14 +20,21 @@ public class Ticket {
     private String ticketNameToShow;
     private String seatCodeToUpdate;
     private String lastLine;
-    // Constructor
+
+    /**
+     * Constructs a Ticket object with the provided folder path.
+     * @param folderPath The folder path where the tickets are stored.
+     */
     public Ticket(String folderPath) {
         this.folderPath = folderPath;
     }
 
-    // Getters and setters
+    // Getters and setters (not shown for brevity)
 
-
+    /**
+     * Searches for a ticket by the user's name.
+     * @return A CustomReturn object containing the search result.
+     */
     public CustomReturn searchTicketByName(){
         Scanner scanner = new Scanner(System.in);
         File folder = new File(this.folderPath);
@@ -51,10 +60,14 @@ public class Ticket {
                 }
             }
         }
-//        return isTicketNotFound;
         return new CustomReturn(isTicketNotFound, 1, "");
     }
 
+    /**
+     * Deletes ticket information.
+     * @param busFilePath The file path of the bus.
+     * @param busName The name of the bus.
+     */
     public void deleteTicketInformation( String busFilePath, String busName){
         Scanner scanner = new Scanner(System.in);
         Utils.formatMsg("| Una vez eliminado no se puede recuperar: ", Constants.BOX_NUMBER, true);
@@ -88,6 +101,10 @@ public class Ticket {
         }
     }
 
+    /**
+     * Shows ticket information to get the bus name.
+     * @return A CustomReturn object containing the ticket information.
+     */
     public CustomReturn showTicketInfoToGetBusName(){
         File folder = new File(this.folderPath);
         File[] files = folder.listFiles();
@@ -103,12 +120,10 @@ public class Ticket {
                         String line;
 
                         while ((line = reader.readLine()) != null) {
-//                            Utils.formatMsg( "| " +line, Constants.BOX_NUMBER, true);
                             lastLineLocal = line;
                         }
                         if (lastLineLocal != null) {
                             this.lastLine = lastLineLocal;
-//                            Utils.formatMsg("| Last line: " + lastLine, Constants.BOX_NUMBER, true);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -116,14 +131,15 @@ public class Ticket {
                 }
             }
         }
-//        return lastLineLocal;
         return new CustomReturn(true, 1, lastLine);
     }
 
+    /**
+     * Shows ticket information.
+     */
     public void showTicketInformation(){
         File folder = new File(this.folderPath);
         File[] files = folder.listFiles();
-
 
         if (files != null) {
             for (File file : files) {
@@ -137,7 +153,6 @@ public class Ticket {
                         }
                         if (lastLineLocal != null) {
                             this.lastLine = lastLineLocal;
-//                            Utils.formatMsg("| Last line: " + lastLine, Constants.BOX_NUMBER, true);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

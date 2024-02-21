@@ -5,9 +5,15 @@ import utils.Utils;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main functionality of the bus management system.
+ */
 public class MainBus {
     private String busNameR;
 
+    /**
+     * Displays the main options of the bus management system and handles user input.
+     */
     public void mainBusOptions() {
         String currentDir = System.getProperty("user.dir"); // Get the current working directory
         String folderPath = currentDir + "/src/buses";
@@ -69,7 +75,6 @@ public class MainBus {
                     break;
                 case "0":
                     System.out.println("...");
-//                    System.out.println("Returning to the main menu...");
                     return;
                 default:
                     System.out.println("Opcion incorrecta, ingresa una opcion valida.");
