@@ -1,10 +1,14 @@
 package components;
+
 import constants.Constants;
 import utils.Utils;
 
 import java.io.*;
 import java.util.Date;
 
+/**
+ * Represents a user who purchases a ticket.
+ */
 public class User {
     private final String name;
     private final String seatCode;
@@ -13,6 +17,15 @@ public class User {
     private String dateOfPurchase;
     private String busName;
 
+    /**
+     * Constructs a User object with the provided information.
+     * @param name The name of the user.
+     * @param seatCode The code of the seat.
+     * @param price The price of the ticket.
+     * @param dateOfPurchase The date of purchase.
+     * @param isWindowSeat Indicates if the seat is a window seat.
+     * @param busName The name of the bus.
+     */
     public User(String name, String seatCode, double price, String dateOfPurchase, boolean isWindowSeat, String busName) {
         this.name = name;
         this.seatCode = seatCode;
@@ -22,13 +35,14 @@ public class User {
         this.busName = busName;
     }
 
+    /**
+     * Creates a ticket file for the user.
+     */
     public void createTicketFile(){
         String currentDir = System.getProperty("user.dir"); // Get the current working directory
         String ticketsDirectory = currentDir + "/src/tickets";
         File folder = new File(ticketsDirectory);
         Utils.validateFilePath(folder);
-
-//        Utils.checkIfFileNmaeExists(folder, "Ingrese un nombre nuevo", this.name + "-"+this.seatCode);
 
         File[] files = folder.listFiles();
         if (files != null) {
@@ -44,7 +58,6 @@ public class User {
 
         try {
             if (newFile.createNewFile()) {
-                // TODO: here xD
                 addTicketContent(newFile);
                 System.out.println("Ticket creado con exito!!");
             } else {
@@ -56,6 +69,11 @@ public class User {
         }
     }
 
+    /**
+     * Adds content to the ticket file.
+     * @param file The file to write the ticket content to.
+     * @throws IOException If an I/O error occurs.
+     */
     public void addTicketContent(File file) throws IOException {
         try {
             FileWriter writer = new FileWriter(file);
@@ -71,40 +89,4 @@ public class User {
             e.printStackTrace();
         }
     }
-
-//    public void updateSeatsValue(String filePath, String seatCode, boolean valueToUpdate){
-//        try {
-//            File inputFile = new File(filePath);
-//            File tempFile = new File("temp.txt");
-//
-//            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-//
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                if (line.startsWith(seatCode)) {
-//                    // Update the line with the new value
-//                    line = seatCode + " taken: " + valueToUpdate;
-//                }
-//                writer.write(line + System.getProperty("line.separator"));
-//            }
-//            reader.close();
-//            writer.close();
-//
-//            // Delete the original file
-//            if (!inputFile.delete()) {
-//                System.out.println("Could not delete file");
-//                return;
-//            }
-//
-//            // Rename the new file to the filename the original file had
-//            if (!tempFile.renameTo(inputFile)) {
-//                System.out.println("Could not rename file");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    // Getters and setters (not shown for brevity)
 }
